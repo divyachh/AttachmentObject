@@ -10,8 +10,8 @@
             console.log(state);
             if (state === "SUCCESS") {
                 var response = response.getReturnValue();
-                component.set("v.base64Value", response);
-                component.set("v.contentType", response);
+                component.set("v.base64Value", response.base64Value);
+                component.set("v.contentType", response.contentType);
                 console.log(JSON.stringify(response))
             }
             else {
