@@ -1,0 +1,27 @@
+public class AttachmentAsset {    
+    @AuraEnabled
+    public static loadContentVersionWrapper loadContentVersion(){
+        
+        loadContentVersionWrapper contentWrapper = new loadContentVersionWrapper();
+        //Id accountId = System.currentPageReference().getParameters().get('accountId');
+        List<Attachment> listOfContentVersion = [SELECT Id,Body,Name,ContentType FROM Attachment WHERE parent.type = 'Account'];
+        if(listOfContentVersion.size()>0){
+            //String base64Value = EncodingUtil.base64Encode(listOfContentVersion[0].VersionData);
+            contentWrapper.base64Value = EncodingUtil.base64Encode(listOfContentVersion[0].Body);
+            System.debug(contentWrapper.base64Value);
+            contentWrapper.contentType = listOfContentVersion[0].ContentType;
+            System.debug(contentWrapper.contentType);
+        }
+        System.debug(contentWrapper);
+        return contentWrapper; 
+    }
+    
+    public class loadContentVersionWrapper{
+        @AuraEnabled 
+        public String base64Value;
+        @AuraEnabled 
+        public String contentType;
+        
+        
+    }
+}
